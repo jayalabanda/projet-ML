@@ -3,3 +3,4 @@ images/
 .ipynb/checkpoints/
 .vscode/
 *.pdf
+.ipynb_checkpoints/rapport_Python-checkpoint.ipynb
