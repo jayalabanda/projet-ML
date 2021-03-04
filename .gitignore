@@ -1,5 +1,4 @@
 data/
 images/
-.ipynb/checkpoints/
-.vscode/
+.ipynb_checkpoints/
 *.pdf
