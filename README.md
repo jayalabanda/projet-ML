@@ -6,6 +6,8 @@ Ce repository contient notre projet pour le cours de Machine Learning.
 
 Le jeu de données consiste en 10 000 chansons tirées de l'API de Spotify. Notre objectif est de prédire la classe de popularité d'une chanson en utilisant ses caractéristiques (énergie, volume sonore, année de sortie...).
 
+![Spotify Logo](https://developer.spotify.com/assets/branding-guidelines/logo.png)
+
 ### Configuration pour *Python*
 
 Afin d'installer ce repository sur votre propre machine, vous avez besoin d'[Anaconda](https://www.anaconda.com/distribution/) et de [git](https://git-scm.com/downloads).
@@ -14,11 +16,6 @@ Ensuite exécutez ces commandes sur une ligne de commande :
 
     $ git clone https://github.com/jayalabanda/projet-ML.git
     $ cd projet-ML
-
-Puis exécutez ces commandes :
-
-    $ conda create -n projet_ML -f requirements.txt
-    $ conda activate projet_ML
 
 Enfin, lancez Jupyter Notebook :
 
@@ -32,5 +29,7 @@ Des instructions plus detaillées sont données ici (en anglais) : [détails](ht
 
 Notre to-do list :
 
-- [ ] preprocessing des données (R, Python)
+- [x] preprocessing des données (R, Python)
+- [ ] transcrire de Python vers R
+- [ ] rédiger le rapport
 - [ ] rendre le rapport final :clap:
