@@ -9,7 +9,7 @@ import numpy as np
 import seaborn as sns
 from matplotlib.collections import LineCollection
 from matplotlib.patches import Patch
-from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
+from sklearn.metrics import (ConfusionMatrixDisplay,accuracy_score,
                              confusion_matrix)
 from statsmodels.graphics.mosaicplot import mosaic
 
