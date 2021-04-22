@@ -85,10 +85,10 @@ def plot_corr_circle(data, pca, comp1, comp2):
         str(pca.explained_variance_ratio_[comp2 - 1] * 100)[:4] + '%'
     ax.set_xlabel(xlab)
     ax.set_ylabel(ylab)
-    ax.set_title(
-        "Cercle de corrélation sur les dimensions {} et {}".format(
-            comp1, comp2)
-    )
+    # ax.set_title(
+    #     "Cercle de corrélation sur les dimensions {} et {}".format(
+    #         comp1, comp2)
+    # )
 
 
 def nclass_classification_mosaic_plot(n_classes, results):
@@ -144,7 +144,7 @@ def nclass_classification_mosaic_plot(n_classes, results):
 
     mosaic(data, labelizer=labelizer, properties=props, ax=ax)
 
-    title_font_dict = {'fontsize': 16, 'color': font_color}
+    # title_font_dict = {'fontsize': 16, 'color': font_color}
     axis_label_font_dict = {'fontsize': 12, 'color': font_color}
 
     ax.tick_params(axis="x", which="both", bottom=False, top=False)
