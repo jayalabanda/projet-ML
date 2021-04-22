@@ -162,8 +162,9 @@ def nclass_classification_mosaic_plot(n_classes, results):
     ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1.018), fontsize=16)
 
 
-def plot_cf_matrix(y_true, y_pred, classes, draw_mosaic=True, **kwargs):
+def plot_cf_matrix(y_true, y_pred, draw_mosaic=True, **kwargs):
     '''PLots confusion matrix and mosaic plot from classification results'''
+    classes = ['A', 'B', 'C', 'D']
     cf_mx = confusion_matrix(y_true, y_pred, normalize=None)
     plt.figure(figsize=(12, 12))
     cm = ConfusionMatrixDisplay(cf_mx, display_labels=classes)
