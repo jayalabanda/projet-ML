@@ -9,7 +9,7 @@ import numpy as np
 import seaborn as sns
 from matplotlib.collections import LineCollection
 from matplotlib.patches import Patch
-from sklearn.metrics import (ConfusionMatrixDisplay,accuracy_score,
+from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
                              confusion_matrix)
 from statsmodels.graphics.mosaicplot import mosaic
 
@@ -86,7 +86,9 @@ def plot_corr_circle(data, pca, comp1, comp2):
     ax.set_xlabel(xlab)
     ax.set_ylabel(ylab)
     ax.set_title(
-        "Cercle de corrélation sur les dimensions {} et {}".format(comp1, comp2))
+        "Cercle de corrélation sur les dimensions {} et {}".format(
+            comp1, comp2)
+    )
 
 
 def nclass_classification_mosaic_plot(n_classes, results):
@@ -155,14 +157,15 @@ def nclass_classification_mosaic_plot(n_classes, results):
 
     legend_elements = [
         Patch(facecolor=all_colors[i], label='Class {}'.format(chr(65+i)))
-        for i in range(n_classes)]
+        for i in range(n_classes)
+    ]
     ax.legend(handles=legend_elements, bbox_to_anchor=(1, 1.018), fontsize=16)
 
 
 def plot_cf_matrix(y_true, y_pred, classes, draw_mosaic=True, **kwargs):
     '''PLots confusion matrix and mosaic plot from classification results'''
     cf_mx = confusion_matrix(y_true, y_pred, normalize=None)
-    plt.figure(figsize=(15, 15))
+    plt.figure(figsize=(12, 12))
     cm = ConfusionMatrixDisplay(cf_mx, display_labels=classes)
     cm.plot(**kwargs)
     if draw_mosaic:
