@@ -194,16 +194,18 @@ def reg_to_class(y_pred):
 
 def plot_results(metrics, y_true_reg, y_true_class, y_pred):
     '''PLots results of classification and regression'''
-    x = np.linspace(0, 100, 200)
+    x = np.linspace(0, 100, 100)
     for metric in metrics:
-        print(metric.__name__.replace('_', ' ').title(),
-              round(metric(y_true_reg, y_pred), 3))
+        print(metric.__name__.replace('_', ' ').title(), ":",
+              round(metric(y_true_reg, y_pred), 5))
     print("\nConverting regression to classification...")
     y_reg_to_class = reg_to_class(y_pred)
-    print("Accuracy score:", accuracy_score(y_true_class, y_reg_to_class))
+    acc_score = accuracy_score(y_true_class, y_reg_to_class)
+    print("Accuracy score:", acc_score, "\n")
 
     plt.plot(x, x, c='red', linestyle='--')
     plt.scatter(y_true_reg, y_pred)
+    return acc_score
 
 
 if __name__ == '__main__':
