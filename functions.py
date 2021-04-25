@@ -83,8 +83,8 @@ def plot_corr_circle(data, pca, comp1, comp2):
         str(pca.explained_variance_ratio_[comp1 - 1] * 100)[:4] + '%'
     ylab = 'Dim ' + str(comp2) + ': ' + \
         str(pca.explained_variance_ratio_[comp2 - 1] * 100)[:4] + '%'
-    ax.set_xlabel(xlab)
-    ax.set_ylabel(ylab)
+    ax.set_xlabel(xlab, fontsize=12)
+    ax.set_ylabel(ylab, fontsize=12)
     # ax.set_title(
     #     "Cercle de corrélation sur les dimensions {} et {}".format(
     #         comp1, comp2)
@@ -192,9 +192,8 @@ def reg_to_class(y_pred):
     return y_reg_to_class
 
 
-def plot_results(metrics, y_true_reg, y_true_class, y_pred):
-    '''PLots results of classification and regression'''
-    x = np.linspace(0, 100, 100)
+def plot_results(metrics, y_true_reg, y_true_class, y_pred, scores_list):
+    '''Plots results of classification and regression'''
     for metric in metrics:
         print(metric.__name__.replace('_', ' ').title(), ":",
               round(metric(y_true_reg, y_pred), 5))
@@ -202,10 +201,16 @@ def plot_results(metrics, y_true_reg, y_true_class, y_pred):
     y_reg_to_class = reg_to_class(y_pred)
     acc_score = accuracy_score(y_true_class, y_reg_to_class)
     print("Accuracy score:", acc_score, "\n")
+    scores_list.append(acc_score)
 
-    plt.plot(x, x, c='red', linestyle='--')
-    plt.scatter(y_true_reg, y_pred)
-    return acc_score
+    plt.figure()
+    plt.scatter(y_true_reg, y_pred, edgecolors=(0, 0, 0))
+    plt.plot([y_true_reg.min(), y_true_reg.max()], [y_true_reg.min(), y_true_reg.max()],
+             'r--', lw=3)
+    plt.xlabel('Measured')
+    plt.ylabel('Predicted')
+    plt.xlim(y_true_reg.min() - 3, 101)
+    plt.ylim(y_pred.min() - 3, 101)
 
 
 if __name__ == '__main__':
