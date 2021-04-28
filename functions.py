@@ -166,7 +166,7 @@ def plot_cf_matrix(y_true, y_pred, draw_mosaic=True, **kwargs):
     '''PLots confusion matrix and mosaic plot from classification results'''
     classes = ['A', 'B', 'C', 'D']
     cf_mx = confusion_matrix(y_true, y_pred, normalize=None)
-    plt.figure(figsize=(12, 12))
+    plt.figure(figsize=(10, 10))
     cm = ConfusionMatrixDisplay(cf_mx, display_labels=classes)
     cm.plot(**kwargs)
     if draw_mosaic:
