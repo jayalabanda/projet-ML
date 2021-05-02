@@ -166,9 +166,10 @@ def plot_cf_matrix(y_true, y_pred, draw_mosaic=True, **kwargs):
     '''PLots confusion matrix and mosaic plot from classification results'''
     classes = ['A', 'B', 'C', 'D']
     cf_mx = confusion_matrix(y_true, y_pred, normalize=None)
-    plt.figure(figsize=(10, 10))
+
+    _, ax = plt.subplots(figsize=(10, 10))
     cm = ConfusionMatrixDisplay(cf_mx, display_labels=classes)
-    cm.plot(**kwargs)
+    cm.plot(ax=ax, colorbar=False, **kwargs)
     if draw_mosaic:
         n_classes = len(classes)
         cf_mx = cf_mx.tolist()
@@ -180,7 +181,7 @@ def reg_to_class(y_pred):
     n = len(y_pred)
     y_reg_to_class = np.zeros(n)
     for i in range(n):
-        if 0 <= y_pred[i] < 20:
+        if 0 <= y_pred[i] < 20:  # on prend en compte les valeurs négatives
             y_reg_to_class[i] = 3
         elif 20 <= y_pred[i] < 40:
             y_reg_to_class[i] = 2
@@ -192,7 +193,7 @@ def reg_to_class(y_pred):
     return y_reg_to_class
 
 
-def plot_results(metrics, y_true_reg, y_true_class, y_pred, scores_list):
+def plot_results(metrics, y_true_reg, y_true_class, y_pred):
     '''Plots results of classification and regression'''
     for metric in metrics:
         print(metric.__name__.replace('_', ' ').title(), ":",
@@ -201,16 +202,16 @@ def plot_results(metrics, y_true_reg, y_true_class, y_pred, scores_list):
     y_reg_to_class = reg_to_class(y_pred)
     acc_score = accuracy_score(y_true_class, y_reg_to_class)
     print("Accuracy score:", acc_score, "\n")
-    scores_list.append(acc_score)
 
     plt.figure()
     plt.scatter(y_true_reg, y_pred, edgecolors=(0, 0, 0))
-    plt.plot([y_true_reg.min(), y_true_reg.max()], [y_true_reg.min(), y_true_reg.max()],
-             'r--', lw=3)
+    plt.plot([0, 100], [0, 100], 'r--', lw=3)
+    # plt.plot([y_true_reg.min(), y_true_reg.max()], [y_true_reg.min(), y_true_reg.max()],
+    #          'r--', lw=3)
     plt.xlabel('Measured')
     plt.ylabel('Predicted')
-    plt.xlim(y_true_reg.min() - 3, 101)
-    plt.ylim(y_pred.min() - 3, 101)
+    plt.xlim(-3, 102)
+    plt.ylim(y_pred.min() - 3, 102)
 
 
 if __name__ == '__main__':
