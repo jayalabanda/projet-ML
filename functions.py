@@ -37,6 +37,7 @@ def histograms_plot(df, features, rows, cols):
 def rainbowarrow(ax, start, end, cmap="viridis", n=50, lw=3):
     '''Gives arrow a gradient color'''
     cmap = plt.get_cmap(cmap, n)
+
     # Arrow shaft: LineCollection
     x = np.linspace(start[0], end[0], n)
     y = np.linspace(start[1], end[1], n)
@@ -45,6 +46,7 @@ def rainbowarrow(ax, start, end, cmap="viridis", n=50, lw=3):
     lc = LineCollection(segments, cmap=cmap, linewidth=lw)
     lc.set_array(np.linspace(0, 1, n))
     ax.add_collection(lc)
+
     # Arrow head: Triangle
     tricoords = [(0, -0.4), (0.5, 0), (0, 0.4), (0, -0.4)]
     angle = np.arctan2(end[1] - start[1], end[0] - start[0])
@@ -64,7 +66,7 @@ def plot_corr_circle(data, pca, comp1, comp2):
         np.sqrt(pca.explained_variance_[comp2 - 1])
 
     cmap = sns.color_palette("flare", as_cmap=True)
-    fig = plt.figure(figsize=(12, 12))
+    fig = plt.figure(figsize=(10, 10))
     ax = fig.add_subplot(1, 1, 1)
     for i, j, nom in zip(coord1, coord2, data.columns):
         plt.text(i, j, nom)
@@ -151,8 +153,9 @@ def nclass_classification_mosaic_plot(n_classes, results):
     ax.axes.yaxis.set_ticks([])
     ax.tick_params(axis='x', which='major', labelsize=14)
 
-    ax.set_xlabel('Observed Class', fontdict=axis_label_font_dict, labelpad=10)
-    ax.set_ylabel('Predicted Class',
+    ax.set_xlabel('Classe observée',
+                  fontdict=axis_label_font_dict, labelpad=10)
+    ax.set_ylabel('Class prédite',
                   fontdict=axis_label_font_dict, labelpad=35)
 
     legend_elements = [
@@ -167,7 +170,7 @@ def plot_cf_matrix(y_true, y_pred, draw_mosaic=True, **kwargs):
     classes = ['A', 'B', 'C', 'D']
     cf_mx = confusion_matrix(y_true, y_pred, normalize=None)
 
-    _, ax = plt.subplots(figsize=(10, 10))
+    _, ax = plt.subplots(figsize=(6, 6))
     cm = ConfusionMatrixDisplay(cf_mx, display_labels=classes)
     cm.plot(ax=ax, colorbar=False, **kwargs)
     if draw_mosaic:
@@ -181,7 +184,7 @@ def reg_to_class(y_pred):
     n = len(y_pred)
     y_reg_to_class = np.zeros(n)
     for i in range(n):
-        if 0 <= y_pred[i] < 20:  # on prend en compte les valeurs négatives
+        if 0 <= y_pred[i] < 20:
             y_reg_to_class[i] = 3
         elif 20 <= y_pred[i] < 40:
             y_reg_to_class[i] = 2
@@ -198,18 +201,16 @@ def plot_results(metrics, y_true_reg, y_true_class, y_pred):
     for metric in metrics:
         print(metric.__name__.replace('_', ' ').title(), ":",
               round(metric(y_true_reg, y_pred), 5))
-    print("\nConverting regression to classification...")
+    print("\nConversion de régression en classification...")
     y_reg_to_class = reg_to_class(y_pred)
     acc_score = accuracy_score(y_true_class, y_reg_to_class)
-    print("Accuracy score:", acc_score, "\n")
+    print("Précision :", acc_score, "\n")
 
     plt.figure()
     plt.scatter(y_true_reg, y_pred, edgecolors=(0, 0, 0))
     plt.plot([0, 100], [0, 100], 'r--', lw=3)
-    # plt.plot([y_true_reg.min(), y_true_reg.max()], [y_true_reg.min(), y_true_reg.max()],
-    #          'r--', lw=3)
-    plt.xlabel('Measured')
-    plt.ylabel('Predicted')
+    plt.xlabel('Observations')
+    plt.ylabel('Prédictions')
     plt.xlim(-3, 102)
     plt.ylim(y_pred.min() - 3, 102)
 
