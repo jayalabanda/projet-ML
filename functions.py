@@ -200,13 +200,13 @@ def plot_results(metrics, y_true_reg, y_true_class, y_pred):
     '''Plots results of classification and regression'''
     for metric in metrics:
         print(metric.__name__.replace('_', ' ').title(), ":",
-              round(metric(y_true_reg, y_pred), 5))
+              round(metric(y_true_reg, y_pred), 4))
     print("\nConversion de régression en classification...")
     y_reg_to_class = reg_to_class(y_pred)
     acc_score = accuracy_score(y_true_class, y_reg_to_class)
     print("Précision :", acc_score, "\n")
 
-    plt.figure()
+    plt.figure(figsize=(12, 6))
     plt.scatter(y_true_reg, y_pred, edgecolors=(0, 0, 0))
     plt.plot([0, 100], [0, 100], 'r--', lw=3)
     plt.xlabel('Observations')

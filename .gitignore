@@ -1,5 +1,6 @@
 data/
 images/
+result_tables/
 __pycache__/
 .vscode/
 .ipynb_checkpoints/

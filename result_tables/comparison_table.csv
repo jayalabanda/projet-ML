@@ -1,0 +1,11 @@
+,Model,Classification,Thresholding
+0,Logistic Regression,0.7156,0.6748
+1,Lasso,0.714,0.6732
+2,Ridge,0.7144,0.6748
+3,Elastic Net,0.7152,0.6736
+4,Random Forest,0.7396,0.7236
+5,Decision Trees,0.7312,0.7228
+6,Linear SVC,0.7,0.662
+7,Polynomial SVC,0.7316,0.6624
+8,Radial SVC,0.706,0.6632
+9,Neural Network,0.7204,0.6648

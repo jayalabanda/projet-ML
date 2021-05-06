@@ -1,0 +1,11 @@
+,Model,Accuracy Score
+0,Logistic Regression,0.7156
+1,Lasso,0.714
+2,Ridge,0.7144
+3,Elastic Net,0.7152
+4,Random Forest,0.7396
+5,Decision Trees,0.7312
+6,Linear SVC,0.7
+7,Polynomial SVC,0.7316
+8,Radial SVC,0.706
+9,Neural Network,0.7204
