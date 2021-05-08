@@ -3,9 +3,9 @@
 1,Lasso,0.714,0.6325
 2,Ridge,0.7144,0.6322
 3,Elastic Net,0.7152,0.6342
-4,Random Forest,0.7424,0.6924
+4,Random Forest,0.7372,0.6805
 5,Decision Trees,0.7312,0.6849
 6,Linear SVC,0.7064,0.5867
 7,Polynomial SVC,0.7316,0.6867
 8,Radial SVC,0.706,0.6182
-9,Neural Network,0.7204,0.6556
+9,Neural Network,0.7192,0.6552

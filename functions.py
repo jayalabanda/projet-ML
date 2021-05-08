@@ -9,8 +9,7 @@ import numpy as np
 import seaborn as sns
 from matplotlib.collections import LineCollection
 from matplotlib.patches import Patch
-from sklearn.metrics import (ConfusionMatrixDisplay, accuracy_score,
-                             confusion_matrix)
+from sklearn.metrics import confusion_matrix
 from statsmodels.graphics.mosaicplot import mosaic
 
 
@@ -21,17 +20,6 @@ def save_fig(fig_id, tight_layout=True, fig_extension="png", resolution=300, im_
     if tight_layout:
         plt.tight_layout()
     plt.savefig(path, format=fig_extension, dpi=resolution)
-
-
-def histograms_plot(df, features, rows, cols):
-    '''Creates histogram plots from dataframe'''
-    fig = plt.figure(figsize=(20, 20))
-    for i, feature in enumerate(features):
-        ax = fig.add_subplot(rows, cols, i + 1)
-        df[feature].hist(bins=50 if i != 1 else 100, ax=ax)
-        ax.set_title("Distribution de '" + feature + "'")
-
-    fig.suptitle("Histogrammes des données", y=1.02)
 
 
 def rainbowarrow(ax, start, end, cmap="viridis", n=50, lw=3):
@@ -59,7 +47,7 @@ def rainbowarrow(ax, start, end, cmap="viridis", n=50, lw=3):
 
 
 def plot_corr_circle(data, pca, comp1, comp2):
-    '''Plots correlation circle from results of PCA'''
+    '''Plot correlation circle from results of PCA'''
     coord1 = pca.components_[comp1 - 1] * \
         np.sqrt(pca.explained_variance_[comp1 - 1])
     coord2 = pca.components_[comp2 - 1] * \
@@ -95,7 +83,7 @@ def plot_corr_circle(data, pca, comp1, comp2):
 
 def nclass_classification_mosaic_plot(n_classes, results):
     """
-    build a mosaic plot from the results of a classification
+    Builds a mosaic plot from the results of a classification
 
     parameters:
     n_classes: number of classes
@@ -166,13 +154,16 @@ def nclass_classification_mosaic_plot(n_classes, results):
 
 
 def plot_cf_matrix(y_true, y_pred, draw_mosaic=True, **kwargs):
-    '''PLots confusion matrix and mosaic plot from classification results'''
+    '''Plot confusion matrix and mosaic plot from classification results'''
     classes = ['A', 'B', 'C', 'D']
     cf_mx = confusion_matrix(y_true, y_pred, normalize=None)
 
-    _, ax = plt.subplots(figsize=(6, 6))
-    cm = ConfusionMatrixDisplay(cf_mx, display_labels=classes)
-    cm.plot(ax=ax, colorbar=False, **kwargs)
+    plt.figure(figsize=(6, 6))
+    sns.heatmap(cf_mx, vmin=0, annot=True, cbar=False, fmt='d',
+                xticklabels=classes, yticklabels=classes, **kwargs)
+    plt.yticks(rotation=0)
+    plt.xlabel('Predicted')
+    plt.ylabel('Observed')
     if draw_mosaic:
         n_classes = len(classes)
         cf_mx = cf_mx.tolist()
@@ -180,31 +171,25 @@ def plot_cf_matrix(y_true, y_pred, draw_mosaic=True, **kwargs):
 
 
 def reg_to_class(y_pred):
-    '''Creates an array with classes from regression results'''
+    '''Creates an array of classes from regression results'''
     n = len(y_pred)
     y_reg_to_class = np.zeros(n)
     for i in range(n):
-        if 0 <= y_pred[i] < 20:
+        if y_pred[i] < 20:  # on prend en compte les valeurs négatives
             y_reg_to_class[i] = 3
         elif 20 <= y_pred[i] < 40:
             y_reg_to_class[i] = 2
         elif 40 <= y_pred[i] < 60:
             y_reg_to_class[i] = 1
-        else:
-            y_reg_to_class[i] = 0
 
     return y_reg_to_class
 
 
-def plot_results(metrics, y_true_reg, y_true_class, y_pred):
-    '''Plots results of classification and regression'''
+def plot_results(metrics, y_true_reg, y_pred):
+    '''Plot results of regression'''
     for metric in metrics:
         print(metric.__name__.replace('_', ' ').title(), ":",
               round(metric(y_true_reg, y_pred), 4))
-    print("\nConversion de régression en classification...")
-    y_reg_to_class = reg_to_class(y_pred)
-    acc_score = accuracy_score(y_true_class, y_reg_to_class)
-    print("Précision :", acc_score, "\n")
 
     plt.figure(figsize=(12, 6))
     plt.scatter(y_true_reg, y_pred, edgecolors=(0, 0, 0))
