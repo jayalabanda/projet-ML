@@ -182,6 +182,8 @@ def reg_to_class(y_pred):
         elif 40 <= y_pred[i] < 60:
             y_reg_to_class[i] = 1
 
+    # le dernier cas, pop >= 60, est ignoré car le vecteur est créé avec des zéros
+
     return y_reg_to_class
 
 
