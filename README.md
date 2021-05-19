@@ -30,6 +30,6 @@ Des instructions plus detaillées sont données ici (en anglais) : [détails](ht
 Notre to-do list :
 
 - [x] preprocessing des données (R, Python)
-- [ ] transcrire de Python vers R
-- [ ] rédiger le rapport
-- [ ] rendre le rapport final :clap:
+- [x] transcrire de Python vers R
+- [x] rédiger le rapport
+- [x] rendre le rapport final :clap:
